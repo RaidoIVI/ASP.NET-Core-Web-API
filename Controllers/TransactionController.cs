@@ -19,7 +19,7 @@ namespace ASP.NET_Core_Web_API.Controllers
             _transactionManager = transactionManager;
         }
 
-        [HttpGet("{ID}")]
+        [HttpGet("{id}")]
         public IActionResult GetItem(Guid id)
         {
             var result = _transactionManager.GetItem(id);

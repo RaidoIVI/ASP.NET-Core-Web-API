@@ -21,7 +21,7 @@ namespace ASP.NET_Core_Web_API.Controllers
             _operationManager = operationManager;
         }
 
-        [HttpGet("{ID}")]
+        [HttpGet("{id}")]
         public IActionResult GetItem(Guid id)
         {
             var result = _operationManager.GetItem(id);
