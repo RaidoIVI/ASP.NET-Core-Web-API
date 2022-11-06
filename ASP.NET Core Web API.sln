@@ -8,13 +8,24 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Public|Any CPU = Public|Any CPU
+		Public|x86 = Public|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|x86.ActiveCfg = Debug|x86
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|x86.Build.0 = Debug|x86
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|Any CPU.Build.0 = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|x86.ActiveCfg = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|x86.Build.0 = Public|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
