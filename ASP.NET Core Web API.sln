@@ -3,18 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET Core Web API", "ASP.NET Core Web API.csproj", "{DFACC489-56D1-4A04-86CC-69CA7028433C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.NET Core Web API", "ASP.NET Core Web API.csproj", "{DFACC489-56D1-4A04-86CC-69CA7028433C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Public|Any CPU = Public|Any CPU
+		Public|x86 = Public|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|x86.ActiveCfg = Debug|x86
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Debug|x86.Build.0 = Debug|x86
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|Any CPU.Build.0 = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|x86.ActiveCfg = Public|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Public|x86.Build.0 = Public|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFACC489-56D1-4A04-86CC-69CA7028433C}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
