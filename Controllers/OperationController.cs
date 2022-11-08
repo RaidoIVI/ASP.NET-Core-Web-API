@@ -1,7 +1,7 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 
-using ASP.NET_Core_Web_API.Domain.Interface;
+using ASP.NET_Core_Web_API.Domain.Interfaces;
 using ASP.NET_Core_Web_API.Models.DTO;
 using ASP.NET_Core_Web_API.Models.Implementation;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +25,7 @@ namespace ASP.NET_Core_Web_API.Controllers
         public IActionResult GetItem(Guid id)
         {
             var result = _operationManager.GetItem(id);
+            result.Wait();
             return Ok(result);
         }
 
@@ -32,6 +33,7 @@ namespace ASP.NET_Core_Web_API.Controllers
         public IActionResult GetList()
         {
             var result = _operationManager.GetList();
+            result.Wait();
             return Ok(result);
         }
 
@@ -39,6 +41,7 @@ namespace ASP.NET_Core_Web_API.Controllers
         public IActionResult Create([FromBody] OperationCreate operation)
         {
             var result = _operationManager.Create(operation);
+            result.Wait();
             return Ok(result);
         }
 

@@ -6,42 +6,42 @@ namespace ASP.NET_Core_Web_API.Data.Implementation
 {
     public class TransactionsRepo : ITransactionsRepo
     {
-        private readonly TransactionsDbContext _transactionsDbContext;
+        private readonly StorageDbContext _storageDbContext;
 
-        public TransactionsRepo(TransactionsDbContext transactionsDbContext)
+        public TransactionsRepo(StorageDbContext storageDbContext)
         {
-            _transactionsDbContext = transactionsDbContext;
+            _storageDbContext = storageDbContext;
         }
 
         public async Task Add(Transaction value)
         {
-            await _transactionsDbContext.Transactions.AddAsync(value);
-            await _transactionsDbContext.SaveChangesAsync();
+            await _storageDbContext.Transactions.AddAsync(value);
+            await _storageDbContext.SaveChangesAsync();
         }
 
         public async Task Delete(Guid id)
         {
-            //
+            var result = await GetItem(id);
+            await Task.Run(() => _storageDbContext.Transactions.Remove(result));
+            await _storageDbContext.SaveChangesAsync();
         }
 
         public async Task<Transaction> GetItem(Guid id)
         {
-            var result = await _transactionsDbContext.Transactions.FindAsync(id);
+            var result = await _storageDbContext.Transactions.FindAsync(id);
             return result;
         }
 
         public async Task<IEnumerable<Transaction>> GetList()
         {
-            var result = await _transactionsDbContext.Transactions.ToArrayAsync();
+            var result = await _storageDbContext.Transactions.ToArrayAsync();
             return result;
         }
 
         public async Task Update(Transaction value)
         {
-            var result = await Task.Run(_transactionsDbContext.Transactions.Update(value));
-
-            // int index = _transactions.IndexOf(_transactions.FirstOrDefault(o => o.Id == value.Id));
-            // _transactions[index] = value;
+            await Task.Run(() => _storageDbContext.Transactions.Update(value));
+            await _storageDbContext.SaveChangesAsync();
         }
     }
 }

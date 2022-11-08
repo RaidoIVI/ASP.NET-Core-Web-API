@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_Core_Web_API.Data
 {
-    public class TransactionsDbContext : DbContext
+    public class StorageDbContext : DbContext
     {
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Operation> Operations { get; set; }
 
-        public TransactionsDbContext(DbContextOptions<TransactionsDbContext> options) : base(options)
+        public StorageDbContext(DbContextOptions<StorageDbContext> options) : base(options)
         {
         }
 

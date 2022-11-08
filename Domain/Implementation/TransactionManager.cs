@@ -1,5 +1,5 @@
 ﻿using ASP.NET_Core_Web_API.Data.Interfaces;
-using ASP.NET_Core_Web_API.Domain.Interface;
+using ASP.NET_Core_Web_API.Domain.Interfaces;
 using ASP.NET_Core_Web_API.Models.DTO;
 using ASP.NET_Core_Web_API.Models.Implementation;
 
@@ -14,33 +14,35 @@ namespace ASP.NET_Core_Web_API.Domain.Implementation
             _transactionRepo = transactionRepo;
         }
 
-        public Guid Create(TransactionCreate transactions)
+        public async Task<Guid> Create(TransactionCreate transactions)
         {
-            var result = new Transaction()
+            var result = new Transaction
             {
                 Id = Guid.NewGuid(),
                 Name = transactions.Name,
                 OperationId = transactions.OperationId,
                 Value = transactions.Value,
-                Date = transactions.Date,
+                Date = transactions.Date
             };
-            _transactionRepo.Add(result);
+            await _transactionRepo.Add(result);
             return result.Id;
         }
 
-        public IEnumerable<Transaction> GetList()
+        public async Task<IEnumerable<Transaction>> GetList()
         {
-            return _transactionRepo.GetList();
+            var result = await _transactionRepo.GetList();
+            return result;
         }
 
-        public Transaction GetItem(Guid id)
+        public async Task<Transaction> GetItem(Guid id)
         {
-            return _transactionRepo.GetItem(id);
+            var result = await _transactionRepo.GetItem(id);
+            return result;
         }
 
-        public void Update(Transaction item)
+        public async Task Update(Transaction item)
         {
-            _transactionRepo.Update(item);
+            await _transactionRepo.Update(item);
         }
     }
 }

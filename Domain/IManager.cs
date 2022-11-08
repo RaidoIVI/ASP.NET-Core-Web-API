@@ -2,8 +2,8 @@
 {
     public interface IManager<T>
     {
-        T GetItem(Guid id);
-        IEnumerable<T> GetList();
-        void Update(T item);
+        Task<T> GetItem(Guid id);
+        Task<IEnumerable<T>> GetList();
+        Task Update(T item);
     }
 }

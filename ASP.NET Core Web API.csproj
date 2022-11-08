@@ -38,6 +38,7 @@
     <Content Remove="Storage\**" />
     <EmbeddedResource Remove="Storage\**" />
     <None Remove="Storage\**" />
+    <Content Remove="global.json" />
   </ItemGroup>
 
   <ItemGroup>
