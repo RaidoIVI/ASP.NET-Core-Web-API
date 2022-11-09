@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using ASP.NET_Core_Web_API.Data;
 using ASP.NET_Core_Web_API.Data.Implementation;
 using ASP.NET_Core_Web_API.Data.Interfaces;
@@ -9,13 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-
-string connectionString = "Data Source=.; User Id=Storage; Password=123;";
-
-
-//string connectionString = "workstation id=Storage.mssql.somee.com; packet size=4096; user id=repo; pwd=123456789; data source=Storage.mssql.somee.com; persist security info=False; initial catalog=Storage";
-
-
+string connectionString = builder.Configuration["DatabaseOptions:ConnectionStrings:SQL"];
 
 builder.Services.AddDbContext<StorageDbContext>(options => options.UseSqlServer(connectionString));
 
@@ -24,8 +19,8 @@ builder.Services.AddScoped<ITransactionsRepo, TransactionsRepo>();
 builder.Services.AddScoped<IOperationManager, OperationManager>();
 builder.Services.AddScoped<ITransactionManager, TransactionManager>();
 
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
