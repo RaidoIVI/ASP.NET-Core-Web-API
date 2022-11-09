@@ -12,7 +12,7 @@ namespace ASP.NET_Core_Web_API.Controllers
     [Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionManager _transactionManager;
+        private readonly ITransactionManager _transactionManager; 
 
         public TransactionController(ITransactionManager transactionManager)
         {
@@ -20,16 +20,36 @@ namespace ASP.NET_Core_Web_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(Guid id)
+        public async Task <IActionResult> GetItem(Guid id)
         {
-            var result = await _transactionManager.GetItem(id);
+            var resultDb = await _transactionManager.GetItem(id);
+            var result = await Task.Run(() => new TransactionToFront
+            {
+                Date = resultDb.Date,
+                Id = resultDb.Id,
+                Name = resultDb.Name,
+                OperationName = resultDb.Operation.Name,
+                Value = resultDb.Value
+            });
             return Ok(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            var result = await _transactionManager.GetList();
+            var resultDb = await _transactionManager.GetList();
+            var result = await Task.Run<IEnumerable<TransactionToFront>> (() =>
+            {
+                return resultDb.Select(transaction => new TransactionToFront
+                    {
+                        Date = transaction.Date,
+                        Id = transaction.Id,
+                        Name = transaction.Name,
+                        OperationName = transaction.Operation.Name,
+                        Value = transaction.Value
+                    }).
+                    ToList();
+            });
             return Ok(result);
         }
 

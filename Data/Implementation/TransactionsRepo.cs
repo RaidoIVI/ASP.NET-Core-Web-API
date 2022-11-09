@@ -45,6 +45,7 @@ namespace ASP.NET_Core_Web_API.Data.Implementation
             if (id != InitServiceDbValue.InitialTransaction.Id)
             {
                 var result = await _storageDbContext.Transactions.FindAsync(id);
+                result.Operation = await _storageDbContext.Operations.FindAsync(result.OperationId);
                 return result;
             }
             return null;
@@ -53,6 +54,14 @@ namespace ASP.NET_Core_Web_API.Data.Implementation
         public async Task<IEnumerable<Transaction>> GetList()
         {
             var result = await _storageDbContext.Transactions.Where(t => t.Id!=InitServiceDbValue.InitialTransaction.Id).ToArrayAsync();
+            await Task.Run(() =>
+                {
+                    foreach (var item in result)
+                    {
+                        item.Operation = _storageDbContext.Operations.Find(item.OperationId);
+                    }
+                }
+            );
             return result;
         }
 

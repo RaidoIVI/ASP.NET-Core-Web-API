@@ -41,8 +41,13 @@ namespace ASP.NET_Core_Web_API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Operation operation)
+        public async Task<IActionResult> Update(OperationEdit operationEdit)
         {
+            var operation = new Operation
+            {
+                Id = operationEdit.Id,
+                Name = operationEdit.Name
+            };
             await _operationManager.Update(operation);
             return Ok();
         }
