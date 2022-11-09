@@ -17,7 +17,8 @@ namespace ASP.NET_Core_Web_API.Data
         {
             modelBuilder.Entity<Operation>().ToTable("Operation");
             modelBuilder.Entity<Transaction>().HasOne(transaction => transaction.Operation).
-                WithMany(operation => operation.Transactions).HasForeignKey("OperationId");
+               WithMany(operation => operation.Transactions).
+               HasForeignKey("OperationId");
             
         }
     }
