@@ -2,9 +2,10 @@
 {
     public interface IRepoBase<T>
     {
-        T GetItem(Guid id);
-        IEnumerable<T> GetList();
-        void Update(T value);
-        void Add(T value);
+        Task<T> GetItem(Guid id);
+        Task<IEnumerable<T>> GetList();
+        Task Update(T value);
+        Task Add(T value);
+        Task Delete(Guid id);
     }
 }

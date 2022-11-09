@@ -1,6 +1,6 @@
 ﻿using ASP.NET_Core_Web_API.Data.Interfaces;
-using ASP.NET_Core_Web_API.Domain.Interface;
-using ASP.NET_Core_Web_API.Models.DTO;
+using ASP.NET_Core_Web_API.Domain.Interfaces;
+using ASP.NET_Core_Web_API.Models.DTO.Operation;
 using ASP.NET_Core_Web_API.Models.Implementation;
 
 namespace ASP.NET_Core_Web_API.Domain.Implementation
@@ -11,34 +11,41 @@ namespace ASP.NET_Core_Web_API.Domain.Implementation
 
         public OperationManager(IOperationsRepo operationsRepo)
         {
-            this._operationsRepo = operationsRepo;
+            _operationsRepo = operationsRepo;
         }
 
-        public Operation GetItem(Guid id)
+        public async Task<Operation> GetItem(Guid id)
         {
-            return _operationsRepo.GetItem(id);
+            var result = await _operationsRepo.GetItem(id);
+            return result;
         }
 
-        public IEnumerable<Operation> GetList()
+        public async Task<IEnumerable<Operation>> GetList()
         {
-            return _operationsRepo.GetList();
+            var result = await _operationsRepo.GetList();
+            return result;
         }
 
-        public Guid Create(OperationCreate operation)
+        public async Task Delete(Guid id)
         {
-            var results = new Operation()
+            await _operationsRepo.Delete(id);
+        }
+
+        public async Task<Guid> Create(OperationCreate operation)
+        {
+            var value = new Operation
             {
                 Id = Guid.NewGuid(),
-                Name = operation.Name,
+                Name = operation.Name
 
             };
-            _operationsRepo.Add(results);
-            return results.Id;
+            await _operationsRepo.Add(value);
+            return value.Id;
         }
 
-        public void Update(Operation item)
+        public async Task Update(Operation item)
         {
-            _operationsRepo.Update(item);
+            await _operationsRepo.Update(item);
         }
     }
 }
