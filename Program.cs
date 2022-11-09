@@ -5,17 +5,15 @@ using ASP.NET_Core_Web_API.Domain.Implementation;
 using ASP.NET_Core_Web_API.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-#if DEBUG 
+
 string connectionString = "Data Source=.; User Id=Storage; Password=123;";
-#endif
-#if RELEASE
-string connectionString = "workstation id=Storage.mssql.somee.com; packet size=4096; user id=repo; pwd=123456789; data source=Storage.mssql.somee.com; persist security info=False; initial catalog=Storage";
-#endif
+
+
+//string connectionString = "workstation id=Storage.mssql.somee.com; packet size=4096; user id=repo; pwd=123456789; data source=Storage.mssql.somee.com; persist security info=False; initial catalog=Storage";
 
 
 

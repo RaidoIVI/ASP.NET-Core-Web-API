@@ -1,6 +1,7 @@
 ﻿using ASP.NET_Core_Web_API.Data.Interfaces;
 using ASP.NET_Core_Web_API.Domain.Interfaces;
-using ASP.NET_Core_Web_API.Models.DTO;
+using ASP.NET_Core_Web_API.Models.DTO.Operation;
+using ASP.NET_Core_Web_API.Models.DTO.Transaction;
 using ASP.NET_Core_Web_API.Models.Implementation;
 
 namespace ASP.NET_Core_Web_API.Domain.Implementation
@@ -14,15 +15,14 @@ namespace ASP.NET_Core_Web_API.Domain.Implementation
             _transactionRepo = transactionRepo;
         }
 
-        public async Task<Guid> Create(TransactionCreate transactions)
+        public async Task<Guid> Create(TransactionCreate transaction)
         {
-            var result = new Transaction
+            Transaction result = new Transaction
             {
                 Id = Guid.NewGuid(),
-                Name = transactions.Name,
-                OperationId = transactions.OperationId,
-                Value = transactions.Value,
-                Date = transactions.Date
+                OperationId = transaction.OperationId,
+                Value = transaction.Value,
+                Date = transaction.Date
             };
             await _transactionRepo.Add(result);
             return result.Id;
@@ -34,15 +34,25 @@ namespace ASP.NET_Core_Web_API.Domain.Implementation
             return result;
         }
 
+        public async Task Delete(Guid id)
+        {
+            await _transactionRepo.Delete(id);
+        }
+
         public async Task<Transaction> GetItem(Guid id)
         {
             var result = await _transactionRepo.GetItem(id);
+            
             return result;
         }
 
-        public async Task Update(Transaction item)
+        public async Task Update(TransactionUpdate item)
         {
-            await _transactionRepo.Update(item);
+            var updated = await _transactionRepo.GetItem(item.TransactionId);
+            if (item.Date != null) updated.Date = item.Date.Value;
+            if (item.Value != null) updated.Value = item.Value.Value;
+            if (item.OperationId != null) updated.OperationId = item.OperationId.Value;
+            await _transactionRepo.Update(updated);
         }
     }
 }

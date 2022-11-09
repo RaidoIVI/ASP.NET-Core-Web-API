@@ -1,5 +1,6 @@
 ﻿using ASP.NET_Core_Web_API.Domain.Interfaces;
-using ASP.NET_Core_Web_API.Models.DTO;
+using ASP.NET_Core_Web_API.Models.DTO.Operation;
+using ASP.NET_Core_Web_API.Models.DTO.Transaction;
 using ASP.NET_Core_Web_API.Models.Implementation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,6 @@ namespace ASP.NET_Core_Web_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionManager _transactionManager;
@@ -20,31 +20,37 @@ namespace ASP.NET_Core_Web_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetItem(Guid id)
+        public async Task<IActionResult> GetItem(Guid id)
         {
-            var result = _transactionManager.GetItem(id);
+            var result = await _transactionManager.GetItem(id);
             return Ok(result);
         }
 
         [HttpGet]
-        public IActionResult GetList()
+        public async Task<IActionResult> GetList()
         {
-            var result = _transactionManager.GetList();
+            var result = await _transactionManager.GetList();
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Create(TransactionCreate transaction)
+        public async Task<IActionResult> Create(TransactionCreate transaction)
         {
-            var result = _transactionManager.Create(transaction);
+            var result = await _transactionManager.Create(transaction);
             return Ok(result);
         }
 
         [HttpPut]
-        public IActionResult Update(Transaction transaction)
+        public async Task<IActionResult> Update(TransactionUpdate transaction)
         {
-            _transactionManager.Update(transaction);
+            await _transactionManager.Update(transaction);
             return Ok();
+        }
+
+        [HttpDelete]
+        public async Task Remove(Guid id)
+        {
+            await _transactionManager.Delete(id);
         }
     }
 }

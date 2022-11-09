@@ -4,5 +4,6 @@
     {
         Guid Id { get; set; }
         string Name { get; set; }
+        int Numer { get; set; }
     }
 }
