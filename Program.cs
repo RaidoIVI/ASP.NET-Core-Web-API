@@ -1,9 +1,9 @@
-using System.Collections.Immutable;
 using ASP.NET_Core_Web_API.Data;
 using ASP.NET_Core_Web_API.Data.Implementation;
 using ASP.NET_Core_Web_API.Data.Interfaces;
 using ASP.NET_Core_Web_API.Domain.Implementation;
 using ASP.NET_Core_Web_API.Domain.Interfaces;
+using ASP.NET_Core_Web_API.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration["DatabaseOptions:ConnectionStrings:SQL"];
 
 builder.Services.AddDbContext<StorageDbContext>(options => options.UseSqlServer(connectionString));
+
 
 builder.Services.AddScoped<IOperationsRepo, OperationsRepo>();
 builder.Services.AddScoped<ITransactionsRepo, TransactionsRepo>();
