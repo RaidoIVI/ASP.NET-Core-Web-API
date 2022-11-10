@@ -1,4 +1,5 @@
-﻿using ASP.NET_Core_Web_API.Domain.Interfaces;
+﻿using System.ComponentModel;
+using ASP.NET_Core_Web_API.Domain.Interfaces;
 using ASP.NET_Core_Web_API.Models.DTO.Operation;
 using ASP.NET_Core_Web_API.Models.DTO.Transaction;
 using ASP.NET_Core_Web_API.Models.Implementation;
@@ -36,7 +37,7 @@ namespace ASP.NET_Core_Web_API.Controllers
                     },
                 Value = resultDb.Value
             });
-            return Ok(result);
+            return result == null ? BadRequest ("Объект не найден") : Ok(result);
         }
 
         [HttpGet]
@@ -62,18 +63,24 @@ namespace ASP.NET_Core_Web_API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("{date-time}")]
+        public async Task<IActionResult> GetReport(DateTime date,[FromBody] Guid[] operationId)
+        {
+            var result = await _transactionManager.GetReport(operationId,date.AddYears(-1),date);
+            return result != null ? Ok(result) : BadRequest("По запросу нет данных");
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Create(TransactionCreate transaction)
         {
             var result = await _transactionManager.Create(transaction);
-            return Ok(result);
+            return result != null ? Ok(result) : BadRequest("Не получилось создать объект");
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(TransactionUpdate transaction)
+        public async Task Update(TransactionUpdate transaction)
         {
             await _transactionManager.Update(transaction);
-            return Ok();
         }
 
         [HttpDelete]

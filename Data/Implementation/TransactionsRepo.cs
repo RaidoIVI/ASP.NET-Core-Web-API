@@ -55,16 +55,16 @@ namespace ASP.NET_Core_Web_API.Data.Implementation
         {
             var operationList = await _storageDbContext.Operations.ToArrayAsync();
             var result = await _storageDbContext.Transactions.Where(t => t.Id!=InitServiceDbValue.InitialTransaction.Id).ToArrayAsync();
- /*           await Task.Run(() =>
-                {
-                    foreach (var item in result)
-                    {
-                        item.Operation = _storageDbContext.Operations.Find(item.OperationId);
-                    }
-                }
-            ); */
             return result;
         }
+
+        public async Task<IEnumerable<Transaction>> GetList(Guid operationId, DateTime dateStart, DateTime dateEnd)
+        {
+            var operationList = await _storageDbContext.Operations.ToArrayAsync();
+            var result = await _storageDbContext.Transactions.Where(t => t.OperationId == operationId && t.Date > dateStart && t.Date < dateEnd).ToArrayAsync();
+            return result;
+        }
+
 
         public async Task Update(Transaction value)
         {
